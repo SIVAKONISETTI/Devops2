@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .input-line,.para{
+            display: grid;
+            grid-template-columns: 200px 150px 100px;
+            padding:5px;
+            row-gap: 10px;
+            column-gap: 10px;
+            align-items: center;
+        }
+        input{
+            background-color: rgb(226, 222, 222);
+            border: none;
+            height:35px;
+        }
+        .add-button{
+            padding:10px;
+            background-color:lightblue;
+            border-radius:3px;
+            border:none;
+        }
+        .delete-button{
+            padding:7px;
+            background-color: lightpink;
+            border-radius: 3px;
+            border:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="input-line">
+        <input type="text" placeholder="Type something" cursor="pointer" class="inputbar">
+        <input type="date" class="inputdate">
+
+        <button class="add-button" onclick="
+            addThem();
+            displayThem();
+        ">ADD</button>
+    </div>
+    <div class="para">hi</div>
+
+    <script>
+        let todolist=['make dinner','write work'];
+        let tododates=['2023-01-01','2023-02-01'];
+        displayThem();
+
+        function addThem()
+        {
+            const a=document.querySelector('.inputbar');
+            const b=a.value;
+            todolist.push(b);
+            let inputa=document.querySelector('.inputdate').value;
+            tododates.push(inputa);
+            console.log(todolist);
+            a.value='';
+        }
+        function displayThem(){
+            let bigmagic='';
+
+
+            for(let i=0;i<todolist.length;i++){
+                const todo=todolist[i];
+                const date=tododates[i];
+                const magic=`
+                    <div>${todo}</div>
+                    <div>${date}</div>
+                    <button onclick="
+                    todolist.splice(${i},1);
+                    console.log(${i});
+                    displayThem();
+                    " class="delete-button">Delete</button>    
+                `;
+                bigmagic += magic;
+                document.querySelector('.para').innerHTML=bigmagic;
+            }
+        }
+
+    </script>
+</body>
+</html>
